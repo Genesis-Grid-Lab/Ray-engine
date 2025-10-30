@@ -1,5 +1,6 @@
 .cache/
 Targets/
+.vscode/
 
 # Prerequisites
 *.d

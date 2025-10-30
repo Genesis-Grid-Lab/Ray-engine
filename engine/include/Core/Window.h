@@ -1,6 +1,6 @@
 #pragma once
 
-#include <raylib.h>
+#include "Config.h"
 
 namespace RE {
   class Window {

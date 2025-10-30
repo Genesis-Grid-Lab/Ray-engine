@@ -1,9 +1,9 @@
 project(RayEngine LANGUAGES CXX)
 
-file(GLOB sourceFile ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
+file(GLOB coreFile ${CMAKE_CURRENT_SOURCE_DIR}/src/Core/*.cpp)
 
 add_library(${PROJECT_NAME}
-  ${sourceFile}
+  ${coreFile}
 )
 
 target_precompile_headers(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/repch.h)
@@ -11,9 +11,11 @@ target_precompile_headers(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc
 target_include_directories(${PROJECT_NAME} PUBLIC
   ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${CMAKE_SOURCE_DIR}/vendor/Raylib/src
+  ${CMAKE_SOURCE_DIR}/vendor/glm
 )
 
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
   raylib
+  glm
 )

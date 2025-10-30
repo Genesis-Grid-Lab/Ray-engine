@@ -1,17 +1,11 @@
-#include "Core/Window.h"
+#include "TestApp.h"
 
-int main() {
+int main(int argc, char** argv) {
+    auto app = new TestApp();
 
-  RE::Window mWin(200, 200, "Testing");
+    app->Run();
 
-  while(!WindowShouldClose()){
-    BeginDrawing();
+    delete app;
 
-    ClearBackground(RAYWHITE);
-
-    DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
-
-    EndDrawing();
-  }
-  return 0;  
+    return 0;  
 }
