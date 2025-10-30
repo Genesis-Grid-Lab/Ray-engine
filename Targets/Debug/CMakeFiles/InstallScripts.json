@@ -1,0 +1,13 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/nephilim/Projects/Ray-engine/Targets/Debug/cmake_install.cmake",
+		"/home/nephilim/Projects/Ray-engine/Targets/Debug/vendor/Raylib/cmake_install.cmake",
+		"/home/nephilim/Projects/Ray-engine/Targets/Debug/vendor/Raylib/raylib/cmake_install.cmake",
+		"/home/nephilim/Projects/Ray-engine/Targets/Debug/vendor/Raylib/raylib/external/glfw/cmake_install.cmake",
+		"/home/nephilim/Projects/Ray-engine/Targets/Debug/vendor/Raylib/raylib/external/glfw/src/cmake_install.cmake",
+		"/home/nephilim/Projects/Ray-engine/Targets/Debug/engine/cmake_install.cmake",
+		"/home/nephilim/Projects/Ray-engine/Targets/Debug/app/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

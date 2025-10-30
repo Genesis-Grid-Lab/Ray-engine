@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../lib/libRayEngine.a CMakeFiles/RayEngine.dir/src/hello.cpp.o
+/usr/bin/ranlib ../lib/libRayEngine.a
