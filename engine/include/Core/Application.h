@@ -3,6 +3,7 @@
 #include "Config.h"
 #include "Window.h"
 #include "LayerStack.h"
+#include "ImGuiLayer.h"
 
 int main(int argc, char** argv);
 
@@ -26,6 +27,7 @@ public:
  void PushLayer(Layer* layer);
  void PushOverlay(Layer* layer);
  void PopLayer(Layer* layer);
+ ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer;}
 
  void Close();
 
@@ -40,6 +42,7 @@ private:
 
 private:
  Scope<Window> m_Window;
+ ImGuiLayer* m_ImGuiLayer;
  bool m_Running = true;
  bool m_Minimized = false;
  LayerStack m_LayerStack;

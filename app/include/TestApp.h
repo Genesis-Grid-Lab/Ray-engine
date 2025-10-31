@@ -5,7 +5,7 @@
 class TestApp : public RE::Application {
 public:
     TestApp()
-        :RE::Application("TestApp", {500, 500})
+        :RE::Application("TestApp", {1280, 900})
         {
             PushLayer(new TestLayer());
         }

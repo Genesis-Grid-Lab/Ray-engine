@@ -8,6 +8,11 @@ Application* Application::s_Instance = nullptr;
 Application::Application(const std::string& name, const glm::vec2& size){
     s_Instance = this;
     m_Window = CreateScope<Window>(size.x, size.y, name.c_str());
+
+    #if RE_DEBUG
+        m_ImGuiLayer = new ImGuiLayer();
+        PushOverlay(m_ImGuiLayer);
+    #endif
 }
 
 Application::~Application(){
@@ -43,11 +48,24 @@ void Application::Run(){
     while(m_Running && !WindowShouldClose()){
         float deltaTime = GetFrameTime();
 
+        BeginDrawing();
         if(!m_Minimized){
             for(Layer* layer : m_LayerStack){
                 layer->OnUpdate(deltaTime);
             }
         }
+
+        #if RE_DEBUG    
+                 
+            m_ImGuiLayer->Begin();
+            {
+            for(Layer* layer : m_LayerStack)
+                layer->OnImGuiRender();
+            }
+
+            m_ImGuiLayer->End();
+        #endif
+        EndDrawing();
 
         while (!m_LayerActionQueue.empty()) {
             LayerAction action = m_LayerActionQueue.front();

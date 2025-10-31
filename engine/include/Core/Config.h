@@ -1,5 +1,10 @@
 #pragma once
 
+#include "PlatformDetection.h"
+
+//tmp
+#define RE_DEBUG true
+
 namespace RE {
 
     //--------------------- Scope = unique pointer --------------------
