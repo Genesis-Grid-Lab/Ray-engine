@@ -13,6 +13,16 @@ public:
     TraceLog(LOG_TRACE,"Attach");
     MainScene = RE::CreateRef<RE::Scene>();
 
+    auto sky = MainScene->CreateEntity("skybox");
+    auto& skyComp = sky.AddComponent<RE::SkyboxComponent>().skybox;
+    Image cubemapImage = LoadImage("Resources/skybox/top.jpg");
+    TextureCubemap cubemap = LoadTextureCubemap(cubemapImage, CUBEMAP_LAYOUT_AUTO_DETECT);
+    UnloadImage(cubemapImage);
+    // Create cube mesh & model
+    Mesh cubeSky = GenMeshCube(1.0f, 1.0f, 1.0f);
+    skyComp = LoadModelFromMesh(cubeSky);
+    skyComp.materials[0].maps[MATERIAL_MAP_CUBEMAP].texture = cubemap;
+
     auto cam = MainScene->CreateEntity("cam");
     auto& cc = cam.AddComponent<RE::Camera3DComponent>();
     cc.Primary = true;      
@@ -49,14 +59,20 @@ public:
 
     manEntt = MainScene->CreateEntity("man");
     auto& manComp = manEntt.AddComponent<RE::ModelComponent>();    
-    manComp.model = LoadModel("Resources/FinalBaseMesh/FinalBaseMesh.obj");
+    manComp.model = LoadModel("Resources/FinalBaseMesh/result.gltf");
     manComp.color = WHITE;
     auto& manTC = manEntt.GetComponent<RE::TransformComponent>();
     // manTC.Translation = {.0f, 5.0f, 1.0f};
     manTC.Scale = {0.05f, 0.05f, 0.05f};
+    int animsCount = 0;    
+    auto &animComp = manEntt.AddComponent<RE::AnimationComponent>();
+    animComp.AddAnimation(
+        "dancing", LoadModelAnimations("Resources/HipHopDancing/result.gltf",
+                                       &animsCount));
+    animComp.PlayAnimation("dancing");    
   }
 
- void OnUpdate(float dt){
+ void OnUpdate(float dt) override{
     switch(m_SceneState){
     case RE::SceneState::Edit:
         MainScene->OnUpdate(dt);
@@ -71,13 +87,6 @@ public:
             OnScenePlay();
         else if (m_SceneState == RE::SceneState::Play)
             OnSceneStop();
-    }
-
-    if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
-        DisableCursor();
-    }
-    else if(IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)){
-        EnableCursor();
     }
  }
 

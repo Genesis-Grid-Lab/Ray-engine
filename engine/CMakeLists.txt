@@ -22,10 +22,10 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${CMAKE_SOURCE_DIR}/vendor/Raylib/src
   ${CMAKE_SOURCE_DIR}/vendor/glm
-   ${CMAKE_SOURCE_DIR}/vendor/imgui
+  ${CMAKE_SOURCE_DIR}/vendor/imgui
   ${CMAKE_SOURCE_DIR}/vendor/imgui/backends
   ${CMAKE_SOURCE_DIR}/vendor/entt/src/entt
-  ${CMAKE_SOURCE_DIR}/Vendor/rImGui
+  ${CMAKE_SOURCE_DIR}/vendor/rImGui
 )
 
 
@@ -54,8 +54,7 @@ if(EXISTS ${CMAKE_SOURCE_DIR}/Resources)
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND 
         ${CMAKE_COMMAND} -E copy_directory 
         ${CMAKE_SOURCE_DIR}/Resources
-        # ${EXECUTABLE_OUTPUT_PATH}/Resources
-	$<TARGET_FILE_DIR:${PROJECT_NAME}>/Resources
+        ${EXECUTABLE_OUTPUT_PATH}/Resources
     )
 else()
     message(WARNING "[WARNING] no resources directory!")

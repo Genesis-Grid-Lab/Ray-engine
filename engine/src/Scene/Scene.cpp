@@ -1,169 +1,251 @@
+#include "raylib.h"
+#include "rlgl.h"
 #include "repch.h"
 #include "Scene/Scene.h"
 #include "Scene/Components.h"
 #include "Scene/Entity.h"
+#include "Auxiliaries/rayext.h"
 
 namespace RE {
 
-    Scene::Scene(){
-        m_EditorCam.position = { 10.0f, 10.0f, 10.0f }; // Camera position
-        m_EditorCam.target = { 0.0f, 0.0f, 0.0f };      // Camera looking at point
-        m_EditorCam.up = { 0.0f, 1.0f, 0.0f };          // Camera up vector (rotation towards target)
-        m_EditorCam.fovy = 45.0f;                                // Camera field-of-view Y
-        m_EditorCam.projection = CAMERA_PERSPECTIVE;             // Camera projection type
-    }
+  Scene::Scene(){
+    m_EditorCam.position = { 10.0f, 10.0f, 10.0f }; // Camera position
+    m_EditorCam.target = { 0.0f, 0.0f, 0.0f };      // Camera looking at point
+    m_EditorCam.up = { 0.0f, 1.0f, 0.0f };          // Camera up vector (rotation towards target)
+    m_EditorCam.fovy = 45.0f;                                // Camera field-of-view Y
+    m_EditorCam.projection = CAMERA_PERSPECTIVE; // Camera projection type
 
-    Scene::~Scene(){}
+    m_SkyboxShader = LoadShader("Data/Shaders/skybox.vs", "Data/Shaders/skybox.fs");
+    m_SkyboxShader.locs[SHADER_LOC_MATRIX_MVP] = GetShaderLocation(m_SkyboxShader, "mvp");
+  }
 
-    Entity Scene::CreateEntity(const std::string& name)
-    {
-        return CreateEntityWithUUID(UUID(), name);
-    }
+  Scene::~Scene(){}
 
-    Entity Scene::CreateEntityWithUUID(UUID uuid, const std::string& name)
-    {
-        Entity entity = { m_Registry.create(), this };
-        // entity.AddComponent<IDComponent>(uuid);
-        auto &id = entity.AddComponent<IDComponent>();
-        id.ID = uuid;
-        entity.AddComponent<TransformComponent>();
-        auto& tag = entity.AddComponent<TagComponent>();
-        tag.Tag = name.empty() ? "Entity" : name;
-        return entity;
-    }
+  Entity Scene::CreateEntity(const std::string& name)
+  {
+    return CreateEntityWithUUID(UUID(), name);
+  }
 
-    void Scene::DestroyEntityNow(Entity entity) { m_Registry.destroy(entity); }
+  Entity Scene::CreateEntityWithUUID(UUID uuid, const std::string& name)
+  {
+    Entity entity = { m_Registry.create(), this };
+    // entity.AddComponent<IDComponent>(uuid);
+    auto &id = entity.AddComponent<IDComponent>();
+    id.ID = uuid;
+    entity.AddComponent<TransformComponent>();
+    auto& tag = entity.AddComponent<TagComponent>();
+    tag.Tag = name.empty() ? "Entity" : name;
+    return entity;
+  }
 
-    void Scene::DestroyEntity(Entity entity){
-        // Queue for destruction; actual registry destroy happens in
-        // FlushEntityDestruction()
-        m_DestroyQueue.push_back((entt::entity)entity);
-    }
+  void Scene::DestroyEntityNow(Entity entity) { m_Registry.destroy(entity); }
 
-    void Scene::FlushEntityDestruction()
-    {
-        if (m_DestroyQueue.empty()) return;    
-        for (auto e : m_DestroyQueue)
-        if (m_Registry.valid(e))
+  void Scene::DestroyEntity(Entity entity){
+    // Queue for destruction; actual registry destroy happens in
+    // FlushEntityDestruction()
+    m_DestroyQueue.push_back((entt::entity)entity);
+  }
+
+  void Scene::FlushEntityDestruction()
+  {
+    if (m_DestroyQueue.empty()) return;    
+    for (auto e : m_DestroyQueue)
+      if (m_Registry.valid(e))
         m_Registry.destroy(e);
 
-        m_DestroyQueue.clear();
+    m_DestroyQueue.clear();
+  }
+
+  void Scene::OnRuntimeStart(){
+
+  }
+
+  void Scene::OnRuntimeStop(){
+
+  }
+
+  void Scene::PhysicsUpdate(float dt){
+
+  }
+
+  void Scene::OnUpdate(float dt) {
+
+    if (IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE)) {
+      inView = true;
+      DisableCursor();
+    } else if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
+      inView = false;
+      EnableCursor();
     }
 
-    void Scene::OnRuntimeStart(){
-
-    }
-
-    void Scene::OnRuntimeStop(){
-
-    }
-
-    void Scene::PhysicsUpdate(float dt){
-
-    }
-
-    void Scene::OnUpdate(float dt){
-        UpdateCamera(&m_EditorCam, CAMERA_FREE);
+    if(inView)
+      UpdateCamera(&m_EditorCam, CAMERA_FREE);
         
-        ClearBackground(RAYWHITE);
+    ClearBackground(RED);
 
-        BeginMode3D(m_EditorCam);                
-        {
-            ViewEntity<Entity, Camera3DComponent>([this](auto entity, auto& comp) {
-                DrawCube(comp.Camera.position, 1.0f, 1.0f, 1.0f, SKYBLUE);
-            });
-            ViewEntity<Entity, CubeComponent>([this](auto entity, auto& comp) {
-                auto& transform = entity.template GetComponent<TransformComponent>();
-                DrawCube(transform.Translation, transform.Scale.x, transform.Scale.y, transform.Scale.z, comp.color);
-            });   
+    BeginMode3D(m_EditorCam);
+    {
+      ViewEntity<Entity, SkyboxComponent>([this](auto entity, auto &comp) {
+	// Image faces[6] = {
+	//   LoadImage("Resource/skybox/right.png"),
+	//   LoadImage("Resource/skybox/left.png"),
+	//   LoadImage("Resource/skybox/top.png"),
+	//   LoadImage("Resource/skybox/bottom.png"),
+	//   LoadImage("Resource/skybox/front.png"),
+	//   LoadImage("Resource/skybox/back.png")
+	// };
+        // TextureCubemap cubemap = LoadTextureCubemapFromImages(faces);
+	// UnloadImage(faces);
+
+
+
+	// Assign cubemap and shader
+	comp.skybox.materials[0].shader = m_SkyboxShader;
+
+	rlDisableBackfaceCulling();     // make inside faces visible
+	rlDisableDepthMask();           // so skybox is always behind everything
+	DrawModel(comp.skybox, { 0,0,0 }, 1.0f, WHITE);
+	rlEnableBackfaceCulling();
+	rlEnableDepthMask();
+      });
+      
+      ViewEntity<Entity, Camera3DComponent>([this](auto entity, auto &comp) {
+	DrawCameraFrustum(comp.Camera, 0.1f, 2.0f, SKYBLUE);
+      });
+      ViewEntity<Entity, CubeComponent>([this](auto entity, auto& comp) {
+	auto& transform = entity.template GetComponent<TransformComponent>();
+	DrawCube(transform.Translation, transform.Scale.x, transform.Scale.y, transform.Scale.z, comp.color);
+      });   
             
-            ViewEntity<Entity, SphereComponent>([this](auto entity, auto& comp) {
-                auto& transform = entity.template GetComponent<TransformComponent>();
-                DrawSphere(transform.Translation, 1.0f, comp.color);
-            });
+      ViewEntity<Entity, SphereComponent>([this](auto entity, auto& comp) {
+	auto& transform = entity.template GetComponent<TransformComponent>();
+	DrawSphere(transform.Translation, 1.0f, comp.color);
+      });
 
-            ViewEntity<Entity, PlaneComponent>([this](auto entity, auto& comp) {
-                auto& transform = entity.template GetComponent<TransformComponent>();
-                DrawPlane(transform.Translation, {transform.Scale.x, transform.Scale.y}, comp.color);
-            });
+      ViewEntity<Entity, PlaneComponent>([this](auto entity, auto& comp) {
+	auto& transform = entity.template GetComponent<TransformComponent>();
+	DrawPlane(transform.Translation, {transform.Scale.x, transform.Scale.y}, comp.color);
+      });
 
-            ViewEntity<Entity, ModelComponent>([this](auto entity, auto& comp) {
-                auto& transform = entity.template GetComponent<TransformComponent>();
-                DrawModelEx(comp.model, transform.Translation, transform.Rotation, 1.0f, transform.Scale, comp.color);
-            });
+      ViewEntity<Entity, ModelComponent>([this](auto entity, auto &comp) {
+	auto &transform =
+	  entity.template GetComponent<TransformComponent>();
+	DrawModelEx(comp.model, transform.Translation, transform.Rotation,
+		    1.0f, transform.Scale, comp.color);
+      });
 
-            DrawGrid(10, 1.0f);
-        }
-        EndMode3D();       
+      ViewEntity<Entity, AnimationComponent>([this](auto entity, auto &comp) {
+        auto &transform = entity.template GetComponent<TransformComponent>();
+        if (entity.template HasComponent<ModelComponent>()) {
+          auto &model = entity.template GetComponent<ModelComponent>().model;
+          unsigned int animIndex = 0;
+          // if (comp.playingAnim) {            
+	  //   ModelAnimation anim = comp.playingAnim[animIndex];
+	  //   comp.animCurrentFrame = (comp.animCurrentFrame + 1)%anim.frameCount;
+	  //   UpdateModelAnimation(model, anim,comp.animCurrentFrame);
+	  // }          
+	}
+      });
 
-        FlushEntityDestruction();
+      DrawGrid(10, 1.0f);
     }
-    void Scene::OnUpdateRuntime(float dt){
-        ViewEntity<Entity, Camera3DComponent>([this](auto entity, auto& comp) {             
-            if (comp.Primary) {
-                UpdateCamera(&comp.Camera, CAMERA_FIRST_PERSON);
-                m_RuntimeCam = &comp.Camera;
-            }
-        });
+    EndMode3D();
+
+    DrawFPS(10,10);
+
+    FlushEntityDestruction();
+  }
+  void Scene::OnUpdateRuntime(float dt){
+    ViewEntity<Entity, Camera3DComponent>([this](auto entity, auto& comp) {             
+      if (comp.Primary) {
+	UpdateCamera(&comp.Camera, CAMERA_FIRST_PERSON);
+	m_RuntimeCam = &comp.Camera;
+      }
+    });
 
                 
-        ClearBackground(RAYWHITE);
+    ClearBackground(RAYWHITE);
 
-        PhysicsUpdate(dt);
+    PhysicsUpdate(dt);
 
-        if(m_RuntimeCam){
-            BeginMode3D(*m_RuntimeCam);
+    if(m_RuntimeCam){
+      BeginMode3D(*m_RuntimeCam);
 
-            ViewEntity<Entity, CubeComponent>([this](auto entity, auto& comp) {
-                auto& transform = entity.template GetComponent<TransformComponent>();
-                DrawCube(transform.Translation, transform.Scale.x, transform.Scale.y, transform.Scale.z, comp.color);
-            });
+      ViewEntity<Entity, SkyboxComponent>([this](auto entity, auto &comp) {
+	// Image faces[6] = {
+	//   LoadImage("Resource/skybox/right.png"),
+	//   LoadImage("Resource/skybox/left.png"),
+	//   LoadImage("Resource/skybox/top.png"),
+	//   LoadImage("Resource/skybox/bottom.png"),
+	//   LoadImage("Resource/skybox/front.png"),
+	//   LoadImage("Resource/skybox/back.png")
+	// };
+        // TextureCubemap cubemap = LoadTextureCubemapFromImages(faces);
+	// UnloadImage(faces);
 
-            ViewEntity<Entity, SphereComponent>([this](auto entity, auto& comp) {
-                auto& transform = entity.template GetComponent<TransformComponent>();
-                DrawSphere(transform.Translation, 1.0f, comp.color);
-            });
+	// Assign cubemap and shader
+	comp.skybox.materials[0].shader = m_SkyboxShader;
 
-            ViewEntity<Entity, PlaneComponent>([this](auto entity, auto& comp) {
-                auto& transform = entity.template GetComponent<TransformComponent>();
-                DrawPlane(transform.Translation, {transform.Scale.x, transform.Scale.y}, comp.color);
-            });  
+	rlDisableBackfaceCulling();     // make inside faces visible
+	rlDisableDepthMask();           // so skybox is always behind everything
+	DrawModel(comp.skybox, { 0,0,0 }, 1.0f, WHITE);
+	rlEnableBackfaceCulling();
+	rlEnableDepthMask();
+      });
+
+      ViewEntity<Entity, CubeComponent>([this](auto entity, auto& comp) {
+	auto& transform = entity.template GetComponent<TransformComponent>();
+	DrawCube(transform.Translation, transform.Scale.x, transform.Scale.y, transform.Scale.z, comp.color);
+      });
+
+      ViewEntity<Entity, SphereComponent>([this](auto entity, auto& comp) {
+	auto& transform = entity.template GetComponent<TransformComponent>();
+	DrawSphere(transform.Translation, 1.0f, comp.color);
+      });
+
+      ViewEntity<Entity, PlaneComponent>([this](auto entity, auto& comp) {
+	auto& transform = entity.template GetComponent<TransformComponent>();
+	DrawPlane(transform.Translation, {transform.Scale.x, transform.Scale.y}, comp.color);
+      });  
             
-            ViewEntity<Entity, ModelComponent>([this](auto entity, auto& comp) {
-                auto& transform = entity.template GetComponent<TransformComponent>();
-                DrawModelEx(comp.model, transform.Translation, transform.Rotation, 1.0f, transform.Scale, comp.color);
-            });
+      ViewEntity<Entity, ModelComponent>([this](auto entity, auto& comp) {
+	auto& transform = entity.template GetComponent<TransformComponent>();
+	DrawModelEx(comp.model, transform.Translation, transform.Rotation, 1.0f, transform.Scale, comp.color);
+      });
 
 
-            EndMode3D();
-        }
-        else{
-            DrawText("NO PRIMARY CAM", 40, 80, 10, RED);
-        }            
-
-        FlushEntityDestruction();
+      EndMode3D();
     }
+    else{
+      DrawText("NO PRIMARY CAM", 40, 80, 10, RED);
+    }            
 
-    template<typename T>
-    void  Scene::OnComponentAdded(Entity entity, T& component)
+    FlushEntityDestruction();
+  }
+
+  template<typename T>
+  void  Scene::OnComponentAdded(Entity entity, T& component)
   {
     // static_assert(false);
   }
 
   template<>
-    void  Scene::OnComponentAdded<IDComponent>(Entity entity, IDComponent& component)
+  void  Scene::OnComponentAdded<IDComponent>(Entity entity, IDComponent& component)
   {
   }
 
   template<>
-    void  Scene::OnComponentAdded<TransformComponent>(Entity entity, TransformComponent& component)
+  void  Scene::OnComponentAdded<TransformComponent>(Entity entity, TransformComponent& component)
   {
   }
 
   template <>
   void Scene::OnComponentAdded<ModelComponent>(Entity entity,
-                                               ModelComponent &component)
-  {}     
+                                               ModelComponent &component) {}
+
+  template <>
+  void Scene::OnComponentAdded<AnimationComponent>(Entity entity,
+						   AnimationComponent &component) {}
 
   template <>
   void Scene::OnComponentAdded<Camera3DComponent>(Entity entity, Camera3DComponent& component)
@@ -178,6 +260,10 @@ namespace RE {
   {}
 
   template <>
-  void Scene::OnComponentAdded<PlaneComponent>(Entity entity, PlaneComponent& component)
+  void Scene::OnComponentAdded<PlaneComponent>(Entity entity,
+                                               PlaneComponent &component) {}
+
+  template <>
+  void Scene::OnComponentAdded<SkyboxComponent>(Entity entity, SkyboxComponent& component)
   {}
 }

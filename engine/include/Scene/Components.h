@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Core/UUID.h"
+#include "raylib.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
@@ -60,6 +61,24 @@ namespace RE {
     ModelComponent(const ModelComponent&) = default;
   };
 
+  struct AnimationComponent {
+    ModelAnimation *playingAnim = nullptr;
+    int animsCount = 0;
+    unsigned int animIndex = 0;
+    unsigned int animCurrentFrame = 0;
+    void AddAnimation(const std::string &name, ModelAnimation *animation) {
+      animations[name] = animation;
+    }
+
+    void PlayAnimation(const std::string &name) {
+      playingAnim = animations[name];
+    }
+    AnimationComponent() = default;
+    AnimationComponent(const AnimationComponent&) = default;
+  private:
+    std::map<std::string, ModelAnimation*> animations;
+  };
+
   struct Camera3DComponent
   {
     Camera3D Camera = {0};
@@ -86,5 +105,11 @@ namespace RE {
     Color color;
     PlaneComponent() = default;
     PlaneComponent(const PlaneComponent&) = default;
+  };
+
+  struct SkyboxComponent {
+    Model skybox;
+    SkyboxComponent() = default;
+    SkyboxComponent(const SkyboxComponent&) = default;
   };
 }

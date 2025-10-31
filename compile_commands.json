@@ -1,5 +1,89 @@
 [
 {
+  "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/vendor/imgui",
+  "command": "/usr/bin/c++  -I/home/nephilim/Projects/Ray-engine/vendor/imgui -g -std=gnu++17 -o CMakeFiles/imgui.dir/imgui.cpp.o -c /home/nephilim/Projects/Ray-engine/vendor/imgui/imgui.cpp",
+  "file": "/home/nephilim/Projects/Ray-engine/vendor/imgui/imgui.cpp",
+  "output": "vendor/imgui/CMakeFiles/imgui.dir/imgui.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/vendor/imgui",
+  "command": "/usr/bin/c++  -I/home/nephilim/Projects/Ray-engine/vendor/imgui -g -std=gnu++17 -o CMakeFiles/imgui.dir/imgui_demo.cpp.o -c /home/nephilim/Projects/Ray-engine/vendor/imgui/imgui_demo.cpp",
+  "file": "/home/nephilim/Projects/Ray-engine/vendor/imgui/imgui_demo.cpp",
+  "output": "vendor/imgui/CMakeFiles/imgui.dir/imgui_demo.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/vendor/imgui",
+  "command": "/usr/bin/c++  -I/home/nephilim/Projects/Ray-engine/vendor/imgui -g -std=gnu++17 -o CMakeFiles/imgui.dir/imgui_draw.cpp.o -c /home/nephilim/Projects/Ray-engine/vendor/imgui/imgui_draw.cpp",
+  "file": "/home/nephilim/Projects/Ray-engine/vendor/imgui/imgui_draw.cpp",
+  "output": "vendor/imgui/CMakeFiles/imgui.dir/imgui_draw.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/vendor/imgui",
+  "command": "/usr/bin/c++  -I/home/nephilim/Projects/Ray-engine/vendor/imgui -g -std=gnu++17 -o CMakeFiles/imgui.dir/imgui_tables.cpp.o -c /home/nephilim/Projects/Ray-engine/vendor/imgui/imgui_tables.cpp",
+  "file": "/home/nephilim/Projects/Ray-engine/vendor/imgui/imgui_tables.cpp",
+  "output": "vendor/imgui/CMakeFiles/imgui.dir/imgui_tables.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/vendor/imgui",
+  "command": "/usr/bin/c++  -I/home/nephilim/Projects/Ray-engine/vendor/imgui -g -std=gnu++17 -o CMakeFiles/imgui.dir/imgui_widgets.cpp.o -c /home/nephilim/Projects/Ray-engine/vendor/imgui/imgui_widgets.cpp",
+  "file": "/home/nephilim/Projects/Ray-engine/vendor/imgui/imgui_widgets.cpp",
+  "output": "vendor/imgui/CMakeFiles/imgui.dir/imgui_widgets.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/vendor/rImGui",
+  "command": "/usr/bin/c++  -I/home/nephilim/Projects/Ray-engine/vendor/rImGui -I/home/nephilim/Projects/Ray-engine/vendor/imgui -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -g -std=gnu++20 -o CMakeFiles/rImGui.dir/examples/asset_browser/asset_browser.cpp.o -c /home/nephilim/Projects/Ray-engine/vendor/rImGui/examples/asset_browser/asset_browser.cpp",
+  "file": "/home/nephilim/Projects/Ray-engine/vendor/rImGui/examples/asset_browser/asset_browser.cpp",
+  "output": "vendor/rImGui/CMakeFiles/rImGui.dir/examples/asset_browser/asset_browser.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/vendor/rImGui",
+  "command": "/usr/bin/c++  -I/home/nephilim/Projects/Ray-engine/vendor/rImGui -I/home/nephilim/Projects/Ray-engine/vendor/imgui -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -g -std=gnu++20 -o CMakeFiles/rImGui.dir/examples/asset_browser/imgui_utils.cpp.o -c /home/nephilim/Projects/Ray-engine/vendor/rImGui/examples/asset_browser/imgui_utils.cpp",
+  "file": "/home/nephilim/Projects/Ray-engine/vendor/rImGui/examples/asset_browser/imgui_utils.cpp",
+  "output": "vendor/rImGui/CMakeFiles/rImGui.dir/examples/asset_browser/imgui_utils.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/vendor/rImGui",
+  "command": "/usr/bin/c++  -I/home/nephilim/Projects/Ray-engine/vendor/rImGui -I/home/nephilim/Projects/Ray-engine/vendor/imgui -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -g -std=gnu++20 -o CMakeFiles/rImGui.dir/examples/asset_browser/item_views.cpp.o -c /home/nephilim/Projects/Ray-engine/vendor/rImGui/examples/asset_browser/item_views.cpp",
+  "file": "/home/nephilim/Projects/Ray-engine/vendor/rImGui/examples/asset_browser/item_views.cpp",
+  "output": "vendor/rImGui/CMakeFiles/rImGui.dir/examples/asset_browser/item_views.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/vendor/rImGui",
+  "command": "/usr/bin/c++  -I/home/nephilim/Projects/Ray-engine/vendor/rImGui -I/home/nephilim/Projects/Ray-engine/vendor/imgui -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -g -std=gnu++20 -o CMakeFiles/rImGui.dir/examples/asset_browser/main.cpp.o -c /home/nephilim/Projects/Ray-engine/vendor/rImGui/examples/asset_browser/main.cpp",
+  "file": "/home/nephilim/Projects/Ray-engine/vendor/rImGui/examples/asset_browser/main.cpp",
+  "output": "vendor/rImGui/CMakeFiles/rImGui.dir/examples/asset_browser/main.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/vendor/rImGui",
+  "command": "/usr/bin/c++  -I/home/nephilim/Projects/Ray-engine/vendor/rImGui -I/home/nephilim/Projects/Ray-engine/vendor/imgui -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -g -std=gnu++20 -o CMakeFiles/rImGui.dir/examples/docking_example.cpp.o -c /home/nephilim/Projects/Ray-engine/vendor/rImGui/examples/docking_example.cpp",
+  "file": "/home/nephilim/Projects/Ray-engine/vendor/rImGui/examples/docking_example.cpp",
+  "output": "vendor/rImGui/CMakeFiles/rImGui.dir/examples/docking_example.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/vendor/rImGui",
+  "command": "/usr/bin/c++  -I/home/nephilim/Projects/Ray-engine/vendor/rImGui -I/home/nephilim/Projects/Ray-engine/vendor/imgui -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -g -std=gnu++20 -o CMakeFiles/rImGui.dir/examples/editor.cpp.o -c /home/nephilim/Projects/Ray-engine/vendor/rImGui/examples/editor.cpp",
+  "file": "/home/nephilim/Projects/Ray-engine/vendor/rImGui/examples/editor.cpp",
+  "output": "vendor/rImGui/CMakeFiles/rImGui.dir/examples/editor.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/vendor/rImGui",
+  "command": "/usr/bin/c++  -I/home/nephilim/Projects/Ray-engine/vendor/rImGui -I/home/nephilim/Projects/Ray-engine/vendor/imgui -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -g -std=gnu++20 -o CMakeFiles/rImGui.dir/examples/imgui_style_example.cpp.o -c /home/nephilim/Projects/Ray-engine/vendor/rImGui/examples/imgui_style_example.cpp",
+  "file": "/home/nephilim/Projects/Ray-engine/vendor/rImGui/examples/imgui_style_example.cpp",
+  "output": "vendor/rImGui/CMakeFiles/rImGui.dir/examples/imgui_style_example.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/vendor/rImGui",
+  "command": "/usr/bin/c++  -I/home/nephilim/Projects/Ray-engine/vendor/rImGui -I/home/nephilim/Projects/Ray-engine/vendor/imgui -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -g -std=gnu++20 -o CMakeFiles/rImGui.dir/examples/simple.cpp.o -c /home/nephilim/Projects/Ray-engine/vendor/rImGui/examples/simple.cpp",
+  "file": "/home/nephilim/Projects/Ray-engine/vendor/rImGui/examples/simple.cpp",
+  "output": "vendor/rImGui/CMakeFiles/rImGui.dir/examples/simple.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/vendor/rImGui",
+  "command": "/usr/bin/c++  -I/home/nephilim/Projects/Ray-engine/vendor/rImGui -I/home/nephilim/Projects/Ray-engine/vendor/imgui -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -g -std=gnu++20 -o CMakeFiles/rImGui.dir/rlImGui.cpp.o -c /home/nephilim/Projects/Ray-engine/vendor/rImGui/rlImGui.cpp",
+  "file": "/home/nephilim/Projects/Ray-engine/vendor/rImGui/rlImGui.cpp",
+  "output": "vendor/rImGui/CMakeFiles/rImGui.dir/rlImGui.cpp.o"
+},
+{
   "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/vendor/Raylib/raylib",
   "command": "/usr/bin/cc -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -isystem /home/nephilim/Projects/Ray-engine/vendor/Raylib/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=gnu99 -o CMakeFiles/raylib.dir/raudio.c.o -c /home/nephilim/Projects/Ray-engine/vendor/Raylib/src/raudio.c",
   "file": "/home/nephilim/Projects/Ray-engine/vendor/Raylib/src/raudio.c",
@@ -181,25 +265,61 @@
 },
 {
   "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/engine",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/nephilim/Projects/Ray-engine/engine/include -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -g -std=gnu++20 -Winvalid-pch -x c++-header -include /home/nephilim/Projects/Ray-engine/Targets/Debug/engine/CMakeFiles/RayEngine.dir/cmake_pch.hxx -o CMakeFiles/RayEngine.dir/cmake_pch.hxx.gch -c /home/nephilim/Projects/Ray-engine/Targets/Debug/engine/CMakeFiles/RayEngine.dir/cmake_pch.hxx.cxx",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -DRE_DEBUG -I/home/nephilim/Projects/Ray-engine/engine/include -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -I/home/nephilim/Projects/Ray-engine/vendor/glm -I/home/nephilim/Projects/Ray-engine/vendor/imgui -I/home/nephilim/Projects/Ray-engine/vendor/imgui/backends -I/home/nephilim/Projects/Ray-engine/vendor/entt/src/entt -I/home/nephilim/Projects/Ray-engine/vendor/rImGui -I/home/nephilim/Projects/Ray-engine/vendor/glm/glm/.. -I/home/nephilim/Projects/Ray-engine/vendor/entt/src -g -std=gnu++20 -Winvalid-pch -x c++-header -include /home/nephilim/Projects/Ray-engine/Targets/Debug/engine/CMakeFiles/RayEngine.dir/cmake_pch.hxx -o CMakeFiles/RayEngine.dir/cmake_pch.hxx.gch -c /home/nephilim/Projects/Ray-engine/Targets/Debug/engine/CMakeFiles/RayEngine.dir/cmake_pch.hxx.cxx",
   "file": "/home/nephilim/Projects/Ray-engine/Targets/Debug/engine/CMakeFiles/RayEngine.dir/cmake_pch.hxx.cxx",
   "output": "engine/CMakeFiles/RayEngine.dir/cmake_pch.hxx.gch"
 },
 {
   "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/engine",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/nephilim/Projects/Ray-engine/engine/include -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Ray-engine/Targets/Debug/engine/CMakeFiles/RayEngine.dir/cmake_pch.hxx -o CMakeFiles/RayEngine.dir/src/hello.cpp.o -c /home/nephilim/Projects/Ray-engine/engine/src/hello.cpp",
-  "file": "/home/nephilim/Projects/Ray-engine/engine/src/hello.cpp",
-  "output": "engine/CMakeFiles/RayEngine.dir/src/hello.cpp.o"
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -DRE_DEBUG -I/home/nephilim/Projects/Ray-engine/engine/include -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -I/home/nephilim/Projects/Ray-engine/vendor/glm -I/home/nephilim/Projects/Ray-engine/vendor/imgui -I/home/nephilim/Projects/Ray-engine/vendor/imgui/backends -I/home/nephilim/Projects/Ray-engine/vendor/entt/src/entt -I/home/nephilim/Projects/Ray-engine/vendor/rImGui -I/home/nephilim/Projects/Ray-engine/vendor/glm/glm/.. -I/home/nephilim/Projects/Ray-engine/vendor/entt/src -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Ray-engine/Targets/Debug/engine/CMakeFiles/RayEngine.dir/cmake_pch.hxx -o CMakeFiles/RayEngine.dir/src/Core/Application.cpp.o -c /home/nephilim/Projects/Ray-engine/engine/src/Core/Application.cpp",
+  "file": "/home/nephilim/Projects/Ray-engine/engine/src/Core/Application.cpp",
+  "output": "engine/CMakeFiles/RayEngine.dir/src/Core/Application.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/engine",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -DRE_DEBUG -I/home/nephilim/Projects/Ray-engine/engine/include -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -I/home/nephilim/Projects/Ray-engine/vendor/glm -I/home/nephilim/Projects/Ray-engine/vendor/imgui -I/home/nephilim/Projects/Ray-engine/vendor/imgui/backends -I/home/nephilim/Projects/Ray-engine/vendor/entt/src/entt -I/home/nephilim/Projects/Ray-engine/vendor/rImGui -I/home/nephilim/Projects/Ray-engine/vendor/glm/glm/.. -I/home/nephilim/Projects/Ray-engine/vendor/entt/src -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Ray-engine/Targets/Debug/engine/CMakeFiles/RayEngine.dir/cmake_pch.hxx -o CMakeFiles/RayEngine.dir/src/Core/ImGuiLayer.cpp.o -c /home/nephilim/Projects/Ray-engine/engine/src/Core/ImGuiLayer.cpp",
+  "file": "/home/nephilim/Projects/Ray-engine/engine/src/Core/ImGuiLayer.cpp",
+  "output": "engine/CMakeFiles/RayEngine.dir/src/Core/ImGuiLayer.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/engine",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -DRE_DEBUG -I/home/nephilim/Projects/Ray-engine/engine/include -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -I/home/nephilim/Projects/Ray-engine/vendor/glm -I/home/nephilim/Projects/Ray-engine/vendor/imgui -I/home/nephilim/Projects/Ray-engine/vendor/imgui/backends -I/home/nephilim/Projects/Ray-engine/vendor/entt/src/entt -I/home/nephilim/Projects/Ray-engine/vendor/rImGui -I/home/nephilim/Projects/Ray-engine/vendor/glm/glm/.. -I/home/nephilim/Projects/Ray-engine/vendor/entt/src -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Ray-engine/Targets/Debug/engine/CMakeFiles/RayEngine.dir/cmake_pch.hxx -o CMakeFiles/RayEngine.dir/src/Core/Layer.cpp.o -c /home/nephilim/Projects/Ray-engine/engine/src/Core/Layer.cpp",
+  "file": "/home/nephilim/Projects/Ray-engine/engine/src/Core/Layer.cpp",
+  "output": "engine/CMakeFiles/RayEngine.dir/src/Core/Layer.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/engine",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -DRE_DEBUG -I/home/nephilim/Projects/Ray-engine/engine/include -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -I/home/nephilim/Projects/Ray-engine/vendor/glm -I/home/nephilim/Projects/Ray-engine/vendor/imgui -I/home/nephilim/Projects/Ray-engine/vendor/imgui/backends -I/home/nephilim/Projects/Ray-engine/vendor/entt/src/entt -I/home/nephilim/Projects/Ray-engine/vendor/rImGui -I/home/nephilim/Projects/Ray-engine/vendor/glm/glm/.. -I/home/nephilim/Projects/Ray-engine/vendor/entt/src -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Ray-engine/Targets/Debug/engine/CMakeFiles/RayEngine.dir/cmake_pch.hxx -o CMakeFiles/RayEngine.dir/src/Core/LayerStack.cpp.o -c /home/nephilim/Projects/Ray-engine/engine/src/Core/LayerStack.cpp",
+  "file": "/home/nephilim/Projects/Ray-engine/engine/src/Core/LayerStack.cpp",
+  "output": "engine/CMakeFiles/RayEngine.dir/src/Core/LayerStack.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/engine",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -DRE_DEBUG -I/home/nephilim/Projects/Ray-engine/engine/include -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -I/home/nephilim/Projects/Ray-engine/vendor/glm -I/home/nephilim/Projects/Ray-engine/vendor/imgui -I/home/nephilim/Projects/Ray-engine/vendor/imgui/backends -I/home/nephilim/Projects/Ray-engine/vendor/entt/src/entt -I/home/nephilim/Projects/Ray-engine/vendor/rImGui -I/home/nephilim/Projects/Ray-engine/vendor/glm/glm/.. -I/home/nephilim/Projects/Ray-engine/vendor/entt/src -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Ray-engine/Targets/Debug/engine/CMakeFiles/RayEngine.dir/cmake_pch.hxx -o CMakeFiles/RayEngine.dir/src/Core/UUID.cpp.o -c /home/nephilim/Projects/Ray-engine/engine/src/Core/UUID.cpp",
+  "file": "/home/nephilim/Projects/Ray-engine/engine/src/Core/UUID.cpp",
+  "output": "engine/CMakeFiles/RayEngine.dir/src/Core/UUID.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/engine",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -DRE_DEBUG -I/home/nephilim/Projects/Ray-engine/engine/include -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -I/home/nephilim/Projects/Ray-engine/vendor/glm -I/home/nephilim/Projects/Ray-engine/vendor/imgui -I/home/nephilim/Projects/Ray-engine/vendor/imgui/backends -I/home/nephilim/Projects/Ray-engine/vendor/entt/src/entt -I/home/nephilim/Projects/Ray-engine/vendor/rImGui -I/home/nephilim/Projects/Ray-engine/vendor/glm/glm/.. -I/home/nephilim/Projects/Ray-engine/vendor/entt/src -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Ray-engine/Targets/Debug/engine/CMakeFiles/RayEngine.dir/cmake_pch.hxx -o CMakeFiles/RayEngine.dir/src/Scene/Entity.cpp.o -c /home/nephilim/Projects/Ray-engine/engine/src/Scene/Entity.cpp",
+  "file": "/home/nephilim/Projects/Ray-engine/engine/src/Scene/Entity.cpp",
+  "output": "engine/CMakeFiles/RayEngine.dir/src/Scene/Entity.cpp.o"
+},
+{
+  "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/engine",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -DRE_DEBUG -I/home/nephilim/Projects/Ray-engine/engine/include -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -I/home/nephilim/Projects/Ray-engine/vendor/glm -I/home/nephilim/Projects/Ray-engine/vendor/imgui -I/home/nephilim/Projects/Ray-engine/vendor/imgui/backends -I/home/nephilim/Projects/Ray-engine/vendor/entt/src/entt -I/home/nephilim/Projects/Ray-engine/vendor/rImGui -I/home/nephilim/Projects/Ray-engine/vendor/glm/glm/.. -I/home/nephilim/Projects/Ray-engine/vendor/entt/src -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Ray-engine/Targets/Debug/engine/CMakeFiles/RayEngine.dir/cmake_pch.hxx -o CMakeFiles/RayEngine.dir/src/Scene/Scene.cpp.o -c /home/nephilim/Projects/Ray-engine/engine/src/Scene/Scene.cpp",
+  "file": "/home/nephilim/Projects/Ray-engine/engine/src/Scene/Scene.cpp",
+  "output": "engine/CMakeFiles/RayEngine.dir/src/Scene/Scene.cpp.o"
 },
 {
   "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/app",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/nephilim/Projects/Ray-engine/app/include -I/home/nephilim/Projects/Ray-engine/engine/include -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -g -std=gnu++20 -Winvalid-pch -x c++-header -include /home/nephilim/Projects/Ray-engine/Targets/Debug/app/CMakeFiles/App.dir/cmake_pch.hxx -o CMakeFiles/App.dir/cmake_pch.hxx.gch -c /home/nephilim/Projects/Ray-engine/Targets/Debug/app/CMakeFiles/App.dir/cmake_pch.hxx.cxx",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/nephilim/Projects/Ray-engine/app/include -I/home/nephilim/Projects/Ray-engine/engine/include -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -I/home/nephilim/Projects/Ray-engine/vendor/glm -I/home/nephilim/Projects/Ray-engine/vendor/imgui -I/home/nephilim/Projects/Ray-engine/vendor/imgui/backends -I/home/nephilim/Projects/Ray-engine/vendor/entt/src/entt -I/home/nephilim/Projects/Ray-engine/vendor/rImGui -I/home/nephilim/Projects/Ray-engine/vendor/glm/glm/.. -I/home/nephilim/Projects/Ray-engine/vendor/entt/src -g -std=gnu++20 -Winvalid-pch -x c++-header -include /home/nephilim/Projects/Ray-engine/Targets/Debug/app/CMakeFiles/App.dir/cmake_pch.hxx -o CMakeFiles/App.dir/cmake_pch.hxx.gch -c /home/nephilim/Projects/Ray-engine/Targets/Debug/app/CMakeFiles/App.dir/cmake_pch.hxx.cxx",
   "file": "/home/nephilim/Projects/Ray-engine/Targets/Debug/app/CMakeFiles/App.dir/cmake_pch.hxx.cxx",
   "output": "app/CMakeFiles/App.dir/cmake_pch.hxx.gch"
 },
 {
   "directory": "/home/nephilim/Projects/Ray-engine/Targets/Debug/app",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/nephilim/Projects/Ray-engine/app/include -I/home/nephilim/Projects/Ray-engine/engine/include -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Ray-engine/Targets/Debug/app/CMakeFiles/App.dir/cmake_pch.hxx -o CMakeFiles/App.dir/src/main.cpp.o -c /home/nephilim/Projects/Ray-engine/app/src/main.cpp",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/nephilim/Projects/Ray-engine/app/include -I/home/nephilim/Projects/Ray-engine/engine/include -I/home/nephilim/Projects/Ray-engine/vendor/Raylib/src -I/home/nephilim/Projects/Ray-engine/vendor/glm -I/home/nephilim/Projects/Ray-engine/vendor/imgui -I/home/nephilim/Projects/Ray-engine/vendor/imgui/backends -I/home/nephilim/Projects/Ray-engine/vendor/entt/src/entt -I/home/nephilim/Projects/Ray-engine/vendor/rImGui -I/home/nephilim/Projects/Ray-engine/vendor/glm/glm/.. -I/home/nephilim/Projects/Ray-engine/vendor/entt/src -g -std=gnu++20 -Winvalid-pch -include /home/nephilim/Projects/Ray-engine/Targets/Debug/app/CMakeFiles/App.dir/cmake_pch.hxx -o CMakeFiles/App.dir/src/main.cpp.o -c /home/nephilim/Projects/Ray-engine/app/src/main.cpp",
   "file": "/home/nephilim/Projects/Ray-engine/app/src/main.cpp",
   "output": "app/CMakeFiles/App.dir/src/main.cpp.o"
 }

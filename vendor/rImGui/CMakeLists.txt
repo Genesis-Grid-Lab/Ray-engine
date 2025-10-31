@@ -8,7 +8,7 @@ add_library(${PROJECT_NAME} ${sources} ${headers})
 # include directories
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_SOURCE_DIR}/Vendor/imgui
-    ${CMAKE_SOURCE_DIR}/Vendor/raylib/src
+    ${CMAKE_SOURCE_DIR}/vendor/imgui
+    ${CMAKE_SOURCE_DIR}/vendor/Raylib/src
 )
 
