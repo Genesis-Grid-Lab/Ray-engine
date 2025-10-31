@@ -51,6 +51,7 @@ enum class SceneState {
     Camera3D m_EditorCam;
     Camera3D *m_RuntimeCam = nullptr;
     Shader m_SkyboxShader;
+    Shader m_CubemapShader;
     bool inView = false;
     friend class Entity;
   };

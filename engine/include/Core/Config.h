@@ -7,6 +7,13 @@
 
 namespace RE {
 
+     // runtime type
+    template <typename T>
+    inline constexpr uint32_t TypeID()
+    {
+        return static_cast<uint32_t>(reinterpret_cast<std::uintptr_t>(&typeid(T)));
+    }
+
     //--------------------- Scope = unique pointer --------------------
     template<typename T>
     using Scope = std::unique_ptr<T>;

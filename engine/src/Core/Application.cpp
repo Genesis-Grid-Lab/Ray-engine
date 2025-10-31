@@ -8,6 +8,7 @@ namespace RE {
   Application::Application(const std::string& name, const glm::vec2& size){
     s_Instance = this;
     m_Window = CreateScope<Window>(size.x, size.y, name.c_str());
+    m_Assets = CreateScope<AssetRegistry>();
 
 #if RE_DEBUG
     m_ImGuiLayer = new ImGuiLayer();
@@ -79,5 +80,7 @@ namespace RE {
 	}
       }
     }
+
+    m_Assets->Clear();
   }
 }

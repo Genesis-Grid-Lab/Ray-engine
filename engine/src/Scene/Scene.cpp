@@ -5,6 +5,8 @@
 #include "Scene/Components.h"
 #include "Scene/Entity.h"
 #include "Auxiliaries/rayext.h"
+#include "Core/Application.h"
+#include "Core/UUID.h"
 
 namespace RE {
 
@@ -15,7 +17,8 @@ namespace RE {
     m_EditorCam.fovy = 45.0f;                                // Camera field-of-view Y
     m_EditorCam.projection = CAMERA_PERSPECTIVE; // Camera projection type
 
-    m_SkyboxShader = LoadShader("Data/Shaders/skybox.vs", "Data/Shaders/skybox.fs");
+    m_SkyboxShader = Application::Get().GetAssets().AddShader(UUID(), "Data/Shaders/skybox2.vs", "Data/Shaders/skybox2.fs")->Data;
+    m_CubemapShader = Application::Get().GetAssets().AddShader(UUID(), "Data/Shaders/cubemap.vs", "Data/Shaders/cubemap.fs")->Data;
     m_SkyboxShader.locs[SHADER_LOC_MATRIX_MVP] = GetShaderLocation(m_SkyboxShader, "mvp");
   }
 
@@ -84,30 +87,7 @@ namespace RE {
     ClearBackground(RED);
 
     BeginMode3D(m_EditorCam);
-    {
-      ViewEntity<Entity, SkyboxComponent>([this](auto entity, auto &comp) {
-	// Image faces[6] = {
-	//   LoadImage("Resource/skybox/right.png"),
-	//   LoadImage("Resource/skybox/left.png"),
-	//   LoadImage("Resource/skybox/top.png"),
-	//   LoadImage("Resource/skybox/bottom.png"),
-	//   LoadImage("Resource/skybox/front.png"),
-	//   LoadImage("Resource/skybox/back.png")
-	// };
-        // TextureCubemap cubemap = LoadTextureCubemapFromImages(faces);
-	// UnloadImage(faces);
-
-
-
-	// Assign cubemap and shader
-	comp.skybox.materials[0].shader = m_SkyboxShader;
-
-	rlDisableBackfaceCulling();     // make inside faces visible
-	rlDisableDepthMask();           // so skybox is always behind everything
-	DrawModel(comp.skybox, { 0,0,0 }, 1.0f, WHITE);
-	rlEnableBackfaceCulling();
-	rlEnableDepthMask();
-      });
+    {     
       
       ViewEntity<Entity, Camera3DComponent>([this](auto entity, auto &comp) {
 	DrawCameraFrustum(comp.Camera, 0.1f, 2.0f, SKYBLUE);
@@ -130,7 +110,7 @@ namespace RE {
       ViewEntity<Entity, ModelComponent>([this](auto entity, auto &comp) {
 	auto &transform =
 	  entity.template GetComponent<TransformComponent>();
-	DrawModelEx(comp.model, transform.Translation, transform.Rotation,
+	DrawModelEx(comp.model->Data, transform.Translation, transform.Rotation,
 		    1.0f, transform.Scale, comp.color);
       });
 
@@ -145,6 +125,15 @@ namespace RE {
 	  //   UpdateModelAnimation(model, anim,comp.animCurrentFrame);
 	  // }          
 	}
+      });
+
+       ViewEntity<Entity, SkyboxComponent>([this](auto entity, auto &comp) {
+
+        rlDisableBackfaceCulling();     // make inside faces visible
+        rlDisableDepthMask();           // so skybox is always behind everything
+        DrawModel(comp.skybox->Data, m_EditorCam.position, 1.0f, WHITE);
+        rlEnableBackfaceCulling();
+        rlEnableDepthMask();
       });
 
       DrawGrid(10, 1.0f);
@@ -169,29 +158,7 @@ namespace RE {
     PhysicsUpdate(dt);
 
     if(m_RuntimeCam){
-      BeginMode3D(*m_RuntimeCam);
-
-      ViewEntity<Entity, SkyboxComponent>([this](auto entity, auto &comp) {
-	// Image faces[6] = {
-	//   LoadImage("Resource/skybox/right.png"),
-	//   LoadImage("Resource/skybox/left.png"),
-	//   LoadImage("Resource/skybox/top.png"),
-	//   LoadImage("Resource/skybox/bottom.png"),
-	//   LoadImage("Resource/skybox/front.png"),
-	//   LoadImage("Resource/skybox/back.png")
-	// };
-        // TextureCubemap cubemap = LoadTextureCubemapFromImages(faces);
-	// UnloadImage(faces);
-
-	// Assign cubemap and shader
-	comp.skybox.materials[0].shader = m_SkyboxShader;
-
-	rlDisableBackfaceCulling();     // make inside faces visible
-	rlDisableDepthMask();           // so skybox is always behind everything
-	DrawModel(comp.skybox, { 0,0,0 }, 1.0f, WHITE);
-	rlEnableBackfaceCulling();
-	rlEnableDepthMask();
-      });
+      BeginMode3D(*m_RuntimeCam);      
 
       ViewEntity<Entity, CubeComponent>([this](auto entity, auto& comp) {
 	auto& transform = entity.template GetComponent<TransformComponent>();
@@ -210,7 +177,16 @@ namespace RE {
             
       ViewEntity<Entity, ModelComponent>([this](auto entity, auto& comp) {
 	auto& transform = entity.template GetComponent<TransformComponent>();
-	DrawModelEx(comp.model, transform.Translation, transform.Rotation, 1.0f, transform.Scale, comp.color);
+	DrawModelEx(comp.model->Data, transform.Translation, transform.Rotation, 1.0f, transform.Scale, comp.color);
+      });
+
+      ViewEntity<Entity, SkyboxComponent>([&](auto entity, auto &comp) {
+
+        rlDisableBackfaceCulling();     // make inside faces visible
+        rlDisableDepthMask();           // so skybox is always behind everything
+        DrawModel(comp.skybox->Data, m_RuntimeCam->position, 1.0f, WHITE);
+        rlEnableBackfaceCulling();
+        rlEnableDepthMask();
       });
 
 

@@ -2,6 +2,7 @@
 
 #include "Config.h"
 #include "Window.h"
+#include "Auxiliaries/Assets.h"
 #include "LayerStack.h"
 #include "ImGuiLayer.h"
 
@@ -28,6 +29,7 @@ public:
  void PushOverlay(Layer* layer);
  void PopLayer(Layer* layer);
  ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer;}
+ AssetRegistry& GetAssets() { return *m_Assets;}
 
  void Close();
 
@@ -42,6 +44,7 @@ private:
 
 private:
  Scope<Window> m_Window;
+ Scope<AssetRegistry> m_Assets;
  ImGuiLayer* m_ImGuiLayer;
  bool m_Running = true;
  bool m_Minimized = false;

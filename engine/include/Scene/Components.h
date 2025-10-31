@@ -2,6 +2,7 @@
 
 #include "Core/UUID.h"
 #include "raylib.h"
+#include "Auxiliaries/Assets.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
@@ -54,7 +55,7 @@ namespace RE {
   };
 
   struct  ModelComponent{
-    Model model;
+    Ref<ModelAsset> model;
     Color color;
     BoundingBox box;
     ModelComponent() = default;
@@ -108,7 +109,7 @@ namespace RE {
   };
 
   struct SkyboxComponent {
-    Model skybox;
+    Ref<SkyboxAsset> skybox;
     SkyboxComponent() = default;
     SkyboxComponent(const SkyboxComponent&) = default;
   };
