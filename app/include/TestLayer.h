@@ -46,25 +46,25 @@ public:
     sphereTC.Translation = {2.0f, 2.0f, 0.0f};
 
     auto model = MainScene->CreateEntity("model");
-    auto& modelComp = model.AddComponent<RE::ModelComponent>();    
-    modelComp.model = assets.AddModel(RE::UUID(),"Resources/sponza/source/glTF/Sponza.gltf");    
-    modelComp.color = WHITE;
-    auto& modelTC = model.GetComponent<RE::TransformComponent>();
+    // auto& modelComp = model.AddComponent<RE::ModelComponent>();    
+    // modelComp.model = assets.AddModel(RE::UUID(),"Resources/sponza/source/glTF/Sponza.gltf");    
+    // modelComp.color = WHITE;
+    // auto& modelTC = model.GetComponent<RE::TransformComponent>();
     // modelTC.Translation = {2.0f, 5.0f, 1.0f};
 
     manEntt = MainScene->CreateEntity("man");
-    auto& manComp = manEntt.AddComponent<RE::ModelComponent>();    
-    manComp.model = assets.AddModel(RE::UUID(),"Resources/FinalBaseMesh/result.gltf");
-    manComp.color = WHITE;
-    auto& manTC = manEntt.GetComponent<RE::TransformComponent>();
+    // auto& manComp = manEntt.AddComponent<RE::ModelComponent>();    
+    // manComp.model = assets.AddModel(RE::UUID(),"Resources/FinalBaseMesh/result.gltf");
+    // manComp.color = WHITE;
+    // auto& manTC = manEntt.GetComponent<RE::TransformComponent>();
     // manTC.Translation = {.0f, 5.0f, 1.0f};
-    manTC.Scale = {0.05f, 0.05f, 0.05f};
-    int animsCount = 0;    
-    auto &animComp = manEntt.AddComponent<RE::AnimationComponent>();
-    animComp.AddAnimation(
-        "dancing", LoadModelAnimations("Resources/HipHopDancing/result.gltf",
-                                       &animsCount));
-    animComp.PlayAnimation("dancing");    
+    // manTC.Scale = {0.05f, 0.05f, 0.05f};
+    // int animsCount = 0;    
+    // auto &animComp = manEntt.AddComponent<RE::AnimationComponent>();
+    // animComp.AddAnimation(
+    //     "dancing", LoadModelAnimations("Resources/HipHopDancing/result.gltf",
+    //                                    &animsCount));
+    // animComp.PlayAnimation("dancing");    
   }
 
  void OnUpdate(float dt) override{

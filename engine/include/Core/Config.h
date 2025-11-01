@@ -3,7 +3,13 @@
 #include "PlatformDetection.h"
 
 //tmp
-#define RE_DEBUG true
+#ifndef RE_DEBUG
+    #define RE_DEBUG true
+#endif
+
+#ifndef BT_USE_DOUBLE_PRECISION
+    #define BT_USE_DOUBLE_PRECISION
+#endif
 
 namespace RE {
 

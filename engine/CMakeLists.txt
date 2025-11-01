@@ -1,5 +1,6 @@
 project(RayEngine LANGUAGES CXX)
 
+
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     message(STATUS "Building in Debug mode.")
     # Add debug-specific flags or definitions here
@@ -26,6 +27,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   ${CMAKE_SOURCE_DIR}/vendor/imgui/backends
   ${CMAKE_SOURCE_DIR}/vendor/entt/src/entt
   ${CMAKE_SOURCE_DIR}/vendor/rImGui
+  ${CMAKE_SOURCE_DIR}/vendor/bullet3/src
 )
 
 
@@ -35,6 +37,9 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
   EnTT
   imgui
   rImGui
+  BulletCollision 
+  BulletDynamics 
+  LinearMath
 )
 
 

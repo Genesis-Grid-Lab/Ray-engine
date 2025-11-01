@@ -1,7 +1,11 @@
 #pragma once
 
 #include "Core/UUID.h"
+#include "Auxiliaries/Physics.h"
 #include <entt/entt.hpp>
+
+//tmp
+#include <btBulletDynamicsCommon.h>
 
 namespace RE {
 
@@ -48,10 +52,11 @@ enum class SceneState {
   private:
     entt::registry m_Registry;
     std::vector<entt::entity> m_DestroyQueue;
+    Physics3D m_Physics3D;
     Camera3D m_EditorCam;
     Camera3D *m_RuntimeCam = nullptr;
-    Shader m_SkyboxShader;
-    Shader m_CubemapShader;
+    Vector3 testPos = {0};
+    void* boxBody;
     bool inView = false;
     friend class Entity;
   };

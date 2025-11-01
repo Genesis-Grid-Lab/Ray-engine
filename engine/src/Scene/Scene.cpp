@@ -17,9 +17,9 @@ namespace RE {
     m_EditorCam.fovy = 45.0f;                                // Camera field-of-view Y
     m_EditorCam.projection = CAMERA_PERSPECTIVE; // Camera projection type
 
-    m_SkyboxShader = Application::Get().GetAssets().AddShader(UUID(), "Data/Shaders/skybox2.vs", "Data/Shaders/skybox2.fs")->Data;
-    m_CubemapShader = Application::Get().GetAssets().AddShader(UUID(), "Data/Shaders/cubemap.vs", "Data/Shaders/cubemap.fs")->Data;
-    m_SkyboxShader.locs[SHADER_LOC_MATRIX_MVP] = GetShaderLocation(m_SkyboxShader, "mvp");
+    m_Physics3D.Init();
+
+    testPos = {0, 3, 0};
   }
 
   Scene::~Scene(){}
@@ -60,14 +60,37 @@ namespace RE {
   }
 
   void Scene::OnRuntimeStart(){
+    TraceLog(LOG_INFO, "Physics start");
 
+    // create a ground plane (static)
+    btCollisionShape* groundShape = m_Physics3D.CreateBoxShape(50.0f, 1.0f, 50.0f);
+    float groundTransform[7] = { 0,0,0,1 }; // position + identity quat
+    m_Physics3D.AddRigidBody(groundShape, 0.0f, {0,0,0}, groundTransform);
+
+    // create a dynamic box
+    btCollisionShape* boxShape = m_Physics3D.CreateBoxShape(0.5f, 0.5f, 0.5f);
+    float boxTransform[7] = { 0.0f, 5.0f, 0.0f, 0,0,0,1 };
+    boxBody = m_Physics3D.AddRigidBody(boxShape, 1.0f, testPos, boxTransform);
+    m_Physics3D.Start();
   }
 
   void Scene::OnRuntimeStop(){
-
+    TraceLog(LOG_INFO, "Physics stop");
+    m_Physics3D.Stop();
+    m_Physics3D.Reset();
   }
 
   void Scene::PhysicsUpdate(float dt){
+    m_Physics3D.Step(dt);
+
+    btTransform trans;
+    static_cast<btRigidBody*>(boxBody)->getMotionState()->getWorldTransform(trans);
+
+    testPos = {
+        float(trans.getOrigin().getX()),
+        float(trans.getOrigin().getY()),
+        float(trans.getOrigin().getZ())
+    };
 
   }
 
@@ -136,6 +159,8 @@ namespace RE {
         rlEnableDepthMask();
       });
 
+      DrawCube(testPos, 1, 1, 1, RED);
+
       DrawGrid(10, 1.0f);
     }
     EndMode3D();
@@ -189,6 +214,7 @@ namespace RE {
         rlEnableDepthMask();
       });
 
+    DrawCube(testPos, 1, 1, 1, RED);
 
       EndMode3D();
     }
