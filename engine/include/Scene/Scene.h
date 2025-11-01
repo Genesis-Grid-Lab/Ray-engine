@@ -4,9 +4,6 @@
 #include "Auxiliaries/Physics.h"
 #include <entt/entt.hpp>
 
-//tmp
-#include <btBulletDynamicsCommon.h>
-
 namespace RE {
 
 class Entity;
@@ -35,6 +32,7 @@ enum class SceneState {
 
     void OnUpdate(float dt);
     void OnUpdateRuntime(float dt);
+    Vector3 testPos = {0};
 
     template<typename Entt, typename Comp, typename Task>
     void ViewEntity(Task&& task){
@@ -55,7 +53,6 @@ enum class SceneState {
     Physics3D m_Physics3D;
     Camera3D m_EditorCam;
     Camera3D *m_RuntimeCam = nullptr;
-    Vector3 testPos = {0};
     void* boxBody;
     bool inView = false;
     friend class Entity;

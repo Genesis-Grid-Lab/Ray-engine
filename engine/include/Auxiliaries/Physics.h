@@ -81,7 +81,7 @@ public:
     // - mass: mass in kg; use 0.0f for static bodies
     // - startTransform: array of 7 floats: pos xyz, quat x y z w (or pass identity)
     // Returns a void* handle to the created btRigidBody (caller treats as opaque). Use RemoveRigidBody to destroy.
-    void* AddRigidBody(btCollisionShape* shape, float mass, const Vector3& pos, const float startTransform[4]);
+    void* AddRigidBody(btCollisionShape* shape, float mass, const Vector3& pos, const Vector3& rotation);
 
     // Remove and destroy a rigid body previously created by AddRigidBody.
     // If `destroyShape` is true the collision shape will also be deleted if it is owned by this wrapper.
@@ -90,7 +90,14 @@ public:
     // Convenience helpers: create common shapes (ownership transferred to Physics3D)
     btCollisionShape* CreateBoxShape(float hx, float hy, float hz);   // half extents
     btCollisionShape* CreateSphereShape(float radius);
-    btCollisionShape* CreateCylinderShape(float hx, float hy, float hz);
+  btCollisionShape *CreateCylinderShape(float hx, float hy, float hz);
+  // Create an infinite static plane collision shape.
+  // `normalX/Y/Z` is the plane normal (doesn't need to be unit-length but should be).
+  // `planeConstant` is the plane constant `c` in plane equation: n·x + c = 0.
+  // Example: horizontal ground at y = 0 -> normal=(0,1,0), planeConstant = 0
+  // Returns btCollisionShape* owned by Physics3D (will be deleted in Shutdown()).
+  btCollisionShape* CreatePlaneShape(float normalX, float normalY, float normalZ, float planeConstant);
+
 
     // Raycast from `from` to `to` in world coords
     RaycastHit Raycast(const float from[3], const float to[3]);

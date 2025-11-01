@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Core/Layer.h"
+#include "Scene/Components.h"
 #include "Scene/Scene.h"
 #include "Scene/Entity.h"
 #include "Core/ImGuiHelper.h"
@@ -8,9 +9,9 @@
 
 class TestLayer : public RE::Layer {
 public:
- TestLayer(){}
+  TestLayer(){}
 
- void OnAttach() override{
+  void OnAttach() override{
     auto& assets = RE::Application::Get().GetAssets();
     TraceLog(LOG_TRACE,"Attach");
     MainScene = RE::CreateRef<RE::Scene>();
@@ -28,22 +29,32 @@ public:
     cc.Camera.projection = CAMERA_PERSPECTIVE;             // Camera projection type  
 
     auto floor = MainScene->CreateEntity("floor");
-    // auto& planeComp = floor.AddComponent<RE::PlaneComponent>();
-    // planeComp.color = RED;
+    auto& planeComp = floor.AddComponent<RE::PlaneComponent>();
+    planeComp.color = RED;
     auto& floorTC = floor.GetComponent<RE::TransformComponent>();
     floorTC.Scale = {30, 30, 0};
+    auto &floorRb = floor.AddComponent<RE::RigidbodyComponent>();
+    floorRb.shape = RE::PlaneShape({30, 30, 0});
+    // floorRb.shape = RE::BoxShape({30, 0.1, 30});    
+    floorRb.type = RE::BodyType::Static;
 
-    auto cube = MainScene->CreateEntity("cube");
+    cube = MainScene->CreateEntity("cube");
     auto& CubeComp = cube.AddComponent<RE::CubeComponent>();
     CubeComp.color = BLUE;
     auto& cubeTC = cube.GetComponent<RE::TransformComponent>();
     cubeTC.Translation = {3.0f, 0.0f, 2.0f};
+    auto &crbc = cube.AddComponent<RE::RigidbodyComponent>();
+    crbc.shape = RE::BoxShape();
+    crbc.type = RE::BodyType::Dynamic;
 
     auto sphere = MainScene->CreateEntity("sphere");
     auto& SphereComp = sphere.AddComponent<RE::SphereComponent>();
     SphereComp.color = GREEN;
     auto& sphereTC = sphere.GetComponent<RE::TransformComponent>();
     sphereTC.Translation = {2.0f, 2.0f, 0.0f};
+    auto &sphereRb = sphere.AddComponent<RE::RigidbodyComponent>();
+    sphereRb.shape = RE::SphereShape();
+    sphereRb.type = RE::BodyType::Dynamic;
 
     auto model = MainScene->CreateEntity("model");
     // auto& modelComp = model.AddComponent<RE::ModelComponent>();    
@@ -67,56 +78,60 @@ public:
     // animComp.PlayAnimation("dancing");    
   }
 
- void OnUpdate(float dt) override{
+  void OnUpdate(float dt) override{
     switch(m_SceneState){
     case RE::SceneState::Edit:
-        MainScene->OnUpdate(dt);
-        break;
+      MainScene->OnUpdate(dt);
+      break;
     case RE::SceneState::Play:
-        MainScene->OnUpdateRuntime(dt);
-        break;
+      MainScene->OnUpdateRuntime(dt);
+      break;
     }
 
     if(IsKeyPressed(KEY_TAB)){
-        if(m_SceneState == RE::SceneState::Edit)
-            OnScenePlay();
-        else if (m_SceneState == RE::SceneState::Play)
-            OnSceneStop();
+      if(m_SceneState == RE::SceneState::Edit)
+	OnScenePlay();
+      else if (m_SceneState == RE::SceneState::Play)
+	OnSceneStop();
     }
- }
+  }
 
- void OnImGuiRender() override{
-    #ifdef IMGUI_HAS_DOCK
-        ImGui::DockSpaceOverViewport(0,  NULL, ImGuiDockNodeFlags_PassthruCentralNode); // set ImGuiDockNodeFlags_PassthruCentralNode so that we can see the raylib contents behind the dockspace
-    #endif
-    auto& manTC = manEntt.GetComponent<RE::TransformComponent>();
+  void OnImGuiRender() override{
+#ifdef IMGUI_HAS_DOCK
+    ImGui::DockSpaceOverViewport(0,  NULL, ImGuiDockNodeFlags_PassthruCentralNode); // set ImGuiDockNodeFlags_PassthruCentralNode so that we can see the raylib contents behind the dockspace
+#endif
+    auto &manTC = manEntt.GetComponent<RE::TransformComponent>();
+    auto& cubeTC = cube.GetComponent<RE::TransformComponent>();    
     ImGui::Begin("Propreties");
     ImGui::Text("Camera");
     ImGui::Separator();
     ImGui::Text("Man");
     DrawVec3Control("Man Pos", manTC.Translation);
     DrawVec3Control("Man Scale", manTC.Scale);
+    ImGui::Separator();
+    DrawVec3Control("cube pos", cubeTC.Translation);
     ImGui::End();
- }
+  }
 
 private:
- void OnScenePlay(){
+  void OnScenePlay(){
     m_SceneState = RE::SceneState::Play;
     MainScene->OnRuntimeStart();
- }
+  }
 
- void OnSceneStop(){
+  void OnSceneStop(){
     if(m_SceneState != RE::SceneState::Play){
-        return;
+      return;
     }
 
     m_SceneState = RE::SceneState::Edit;
     MainScene->OnRuntimeStop();
- }
+  }
 
 private:
- RE::Ref<RE::Scene> MainScene;
- RE::SceneState m_SceneState = RE::SceneState::Edit;
+  RE::Ref<RE::Scene> MainScene;
+  RE::SceneState m_SceneState = RE::SceneState::Edit;
 
- RE::Entity manEntt;
+  RE::Entity manEntt;
+  RE::Entity cube; 
 };

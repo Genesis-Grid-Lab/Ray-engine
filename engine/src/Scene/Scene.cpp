@@ -1,3 +1,4 @@
+#include "BulletCollision/CollisionShapes/btStaticPlaneShape.h"
 #include "raylib.h"
 #include "rlgl.h"
 #include "repch.h"
@@ -62,15 +63,44 @@ namespace RE {
   void Scene::OnRuntimeStart(){
     TraceLog(LOG_INFO, "Physics start");
 
-    // create a ground plane (static)
-    btCollisionShape* groundShape = m_Physics3D.CreateBoxShape(50.0f, 1.0f, 50.0f);
-    float groundTransform[7] = { 0,0,0,1 }; // position + identity quat
-    m_Physics3D.AddRigidBody(groundShape, 0.0f, {0,0,0}, groundTransform);
+    ViewEntity<Entity, RigidbodyComponent>([this](auto entity, auto &comp) {
+      auto& transform = entity.template GetComponent<TransformComponent>();
+      auto& rigidShape = comp.shape;
+      if(rigidShape.box){
+	if(rigidShape.Dirty || !rigidShape.btShape){
+	  rigidShape.btShape = m_Physics3D.CreateBoxShape(rigidShape.boxSize.x, rigidShape.boxSize.y, rigidShape.boxSize.z);
+	}
+      }
+      if(rigidShape.sphere){
+        if (rigidShape.Dirty || !rigidShape.btShape) {
+	  rigidShape.btShape = m_Physics3D.CreateSphereShape(rigidShape.radius);
+	}
+      }
 
-    // create a dynamic box
-    btCollisionShape* boxShape = m_Physics3D.CreateBoxShape(0.5f, 0.5f, 0.5f);
-    float boxTransform[7] = { 0.0f, 5.0f, 0.0f, 0,0,0,1 };
-    boxBody = m_Physics3D.AddRigidBody(boxShape, 1.0f, testPos, boxTransform);
+      if(rigidShape.plane){
+        if (rigidShape.Dirty || !rigidShape.btShape) {
+	  rigidShape.btShape = m_Physics3D.CreatePlaneShape(rigidShape.planeSize.x, rigidShape.planeSize.y, rigidShape.planeSize.z, 0);
+	}          
+      }
+
+      switch (comp.type) {
+      case BodyType::Static:
+        comp.body = m_Physics3D.AddRigidBody(
+            rigidShape.btShape, 0, transform.Translation, transform.Rotation);
+        break;
+      case BodyType::Dynamic:
+        comp.body = m_Physics3D.AddRigidBody(
+            rigidShape.btShape, 1, transform.Translation, transform.Rotation);
+        break;
+      case BodyType::Kinematic:
+	break;
+      }
+
+      comp.savedTranslation = transform.Translation;
+      comp.savedRotation = transform.Rotation;
+      comp.savedScale = transform.Scale;
+    });
+
     m_Physics3D.Start();
   }
 
@@ -78,19 +108,38 @@ namespace RE {
     TraceLog(LOG_INFO, "Physics stop");
     m_Physics3D.Stop();
     m_Physics3D.Reset();
+
+    ViewEntity<Entity, RigidbodyComponent>([this](auto entity, auto &comp) {
+      auto &transform = entity.template GetComponent<TransformComponent>();
+      transform.Translation = comp.savedTranslation;
+      transform.Rotation = comp.savedRotation;
+      transform.Scale = comp.savedScale;
+    });
   }
 
   void Scene::PhysicsUpdate(float dt){
     m_Physics3D.Step(dt);
 
-    btTransform trans;
-    static_cast<btRigidBody*>(boxBody)->getMotionState()->getWorldTransform(trans);
+    ViewEntity<Entity, RigidbodyComponent>([this](auto entity, auto &comp) {
+      auto &transform = entity.template GetComponent<TransformComponent>();
+      btTransform trans;
+      static_cast<btRigidBody*>(comp.body)->getMotionState()->getWorldTransform(trans);
 
-    testPos = {
-        float(trans.getOrigin().getX()),
-        float(trans.getOrigin().getY()),
-        float(trans.getOrigin().getZ())
-    };
+      transform.Translation = {float(trans.getOrigin().getX()),
+                               float(trans.getOrigin().getY()),
+                               float(trans.getOrigin().getZ())};
+
+      btQuaternion quat = trans.getRotation();
+
+      transform.Rotation = {
+	float(quat.getAxis().getX()),
+	float(quat.getAxis().getY()),
+	float(quat.getAxis().getZ())
+      };
+      
+    });
+
+
 
   }
 
@@ -150,7 +199,37 @@ namespace RE {
 	}
       });
 
-       ViewEntity<Entity, SkyboxComponent>([this](auto entity, auto &comp) {
+      ViewEntity<Entity, RigidbodyComponent>([this](auto entity, auto &comp) {
+	auto& transform = entity.template GetComponent<TransformComponent>();
+	auto& rigidShape = comp.shape;
+	if(rigidShape.box){
+	  if(rigidShape.Dirty || !rigidShape.btShape){
+	    rigidShape.btShape = m_Physics3D.CreateBoxShape(rigidShape.boxSize.x, rigidShape.boxSize.y, rigidShape.boxSize.z);
+          }
+	  const auto& shapeSize = static_cast<btBoxShape*>(rigidShape.btShape)->getHalfExtentsWithMargin();
+	  DrawCubeWiresV(transform.Translation, {shapeSize.x(), shapeSize.y(), shapeSize.z()}, MAROON);
+        }
+        if (rigidShape.sphere) {
+          if (rigidShape.Dirty || !rigidShape.btShape) {
+	    rigidShape.btShape = m_Physics3D.CreateSphereShape(rigidShape.radius);
+          }
+          const auto &shapeRadius =
+              static_cast<btSphereShape *>(rigidShape.btShape)->getRadius();
+	  DrawSphereWires(transform.Translation, shapeRadius, 4, 4, MAROON);
+        }
+
+	if(rigidShape.plane){
+	  if (rigidShape.Dirty || !rigidShape.btShape) {
+	    rigidShape.btShape = m_Physics3D.CreatePlaneShape(rigidShape.planeSize.x, rigidShape.planeSize.y, rigidShape.planeSize.z, 0);
+          }
+          const auto &shapeSize =
+              static_cast<btStaticPlaneShape *>(rigidShape.btShape)
+                  ->getPlaneNormal();
+	  DrawPlane(transform.Translation, {shapeSize.x(), shapeSize.z()}, MAROON);
+	}
+      });
+
+      ViewEntity<Entity, SkyboxComponent>([this](auto entity, auto &comp) {
 
         rlDisableBackfaceCulling();     // make inside faces visible
         rlDisableDepthMask();           // so skybox is always behind everything
@@ -158,8 +237,6 @@ namespace RE {
         rlEnableBackfaceCulling();
         rlEnableDepthMask();
       });
-
-      DrawCube(testPos, 1, 1, 1, RED);
 
       DrawGrid(10, 1.0f);
     }
@@ -214,7 +291,7 @@ namespace RE {
         rlEnableDepthMask();
       });
 
-    DrawCube(testPos, 1, 1, 1, RED);
+      DrawCube(testPos, 1, 1, 1, RED);
 
       EndMode3D();
     }
@@ -266,6 +343,10 @@ namespace RE {
                                                PlaneComponent &component) {}
 
   template <>
-  void Scene::OnComponentAdded<SkyboxComponent>(Entity entity, SkyboxComponent& component)
+  void Scene::OnComponentAdded<SkyboxComponent>(Entity entity,
+                                                SkyboxComponent &component) {}
+
+  template <>
+  void Scene::OnComponentAdded<RigidbodyComponent>(Entity entity, RigidbodyComponent& component)
   {}
 }

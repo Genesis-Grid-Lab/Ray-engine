@@ -3,6 +3,7 @@
 #include "Core/UUID.h"
 #include "raylib.h"
 #include "Auxiliaries/Assets.h"
+#include <btBulletDynamicsCommon.h>
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
@@ -112,5 +113,62 @@ namespace RE {
     Ref<SkyboxAsset> skybox;
     SkyboxComponent() = default;
     SkyboxComponent(const SkyboxComponent&) = default;
+  };
+
+  // Physics 3D
+  enum class BodyType { Static, Dynamic, Kinematic };
+  struct Shape {
+    btCollisionShape *btShape = nullptr;
+    bool Dirty = true;
+    virtual ~Shape() = default;
+
+    // tmp
+    Vector3 boxSize;
+    Vector3 planeSize;
+    float radius;
+  public:
+    bool operator!() const {
+      return !box && !sphere; // returns true if Shape is null
+    }
+  protected:
+    bool box = false;
+    bool sphere = false;
+    bool plane = false;
+    bool mesh = false;
+    friend class Scene;
+  };
+
+  struct BoxShape : Shape {
+    BoxShape(const Vector3 &size = {1, 1, 1}) {
+      boxSize = size;
+      box = true;
+    }
+  };
+
+  struct SphereShape : Shape {
+    SphereShape(float r = 1) {
+      radius = r;
+      sphere = true;
+    }
+  };
+
+  struct PlaneShape : Shape {
+    PlaneShape(const Vector3 &size) {
+      planeSize = size;
+      plane = true;
+    }
+  };
+  struct RigidbodyComponent {
+    void *body;
+    Shape shape;
+    BodyType type;
+    RigidbodyComponent() = default;
+    RigidbodyComponent(const RigidbodyComponent &) = default;
+
+  private:
+    Vector3 savedTranslation;
+    Vector3 savedRotation;
+    Vector3 savedScale;
+    friend class Scene;
   };
 }
